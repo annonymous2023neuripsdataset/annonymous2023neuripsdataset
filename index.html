@@ -1,1 +1,450 @@
-Hello!!!!!!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenIllumination</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+            position: relative;
+        }
+
+        th::after {
+            content: "";
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .arrow-up::after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid black;
+        }
+
+        .arrow-down::after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid black;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        caption {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        var currentSortCol = -1;
+        var sortDirection = 'asc';
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("myTable");
+            switching = true;
+            dir = sortDirection;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+
+            updateSortIndicator(n, dir);
+            currentSortCol = n;
+            sortDirection = dir;
+
+        }
+
+        function updateSortIndicator(n, dir) {
+            var headers = document.getElementsByTagName("th");
+            for (var i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("arrow-up", "arrow-down");
+            }
+            headers[n].classList.add(dir === 'asc' ? "arrow-up" : "arrow-down");
+        }
+    </script>
+</head>
+
+<!-- cover -->
+<section>
+    <div class="jumbotron text-center mt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2><b>OpenIllumination</b>: A Multi-Illumination Dateset for <br> Inverse Rendering Evaluation on
+                        Real Objects</h2>
+                    <hr>
+                    <h6>
+                        <a href="https://www.liuisabella.com/" target="_blank">Isabella Liu</a><sup>1*</sup>,
+                        <a href="https://ootts.github.io/" target="_blank">Linghao Chen</a><sup>1,2*</sup>,
+                        <a target="_blank">Ziyang Fu</a><sup>1</sup>,
+                        <a target="_blank">Liwen Wu</a><sup>1</sup>,
+                        <a href="https://haian-jin.github.io" target="_blank">Haian Jin</a><sup>2</sup>,
+                        <a href="https://sites.google.com/site/lizhong19900216" target="_blank">Zhong Li</a><sup>3</sup>,
+                        <br>
+                        <a target="_blank">Chin Ming Ryan Wong</a><sup>3</sup>,
+                        <a target="_blank">Yi Xu</a><sup>3</sup>,
+                        <a href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup>1</sup>,
+                        <a href="https://cseweb.ucsd.edu/~zex014" target="_blank">Zexiang Xu</a><sup>4</sup>,
+                        <a href="http://ai.ucsd.edu/~haosu/" target="_blank">Hao Su</a><sup>1</sup>
+                    </h6>
+                    <p>
+                        <sup>*</sup>Equal contribution
+                        <br>
+                        <sup>1</sup>UC San Diego,
+                        <!--                        <br>-->
+                        <sup>2</sup>Zhejiang University,
+                        <!--                        <br>-->
+                        <sup>3</sup>InnoPeak Technology,
+                        <!--                        <br>-->
+                        <sup>4</sup>Adobe Research
+                        <br>
+
+
+                        <!--                    <div class="row justify-content-center">-->
+                        <!--                        <div class="column">-->
+                        <!--                            <p class="mb-5"><a class="btn btn-large btn-light" href="_blank" role="button"-->
+                        <!--                                               target="_blank">-->
+                        <!--                                <i class="fa fa-file"></i> Paper</a></p>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="column">-->
+                        <!--                            <p class="mb-5"><a class="btn btn-large btn-light"-->
+                        <!--                                               href="https://github.com/ootts/AAHeC_prerelease" role="button"-->
+                        <!--                                               target="_blank">-->
+                        <!--                                <i class="fa fa-github-alt"></i> Code</a></p>-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="col-12 text-center">
+            <h2>Lighting pattern (13 illuminations)</h2>
+
+            <table id="myTable" class="table table-striped">
+                <tr>
+                    <!--                    <th onclick="sortTable(0)">ID</th>-->
+                    <!--                    <th onclick="sortTable(1)">Name</th>-->
+                    <!--                    <th onclick="sortTable(2)">Material</th>-->
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Material</th>
+                </tr>
+            </table>
+
+            <h2>OLAT</h2>
+
+            <table id="myTable1" class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Material</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+<br>
+
+
+<!-- abstract -->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Abstract</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                <img src="images/teaser_v11.png" width="600">-->
+<!--                &lt;!&ndash;                <h6 style="color:#8899a5"> ????Animatable NeRF can reconstruct an animatable human model from a sparse multi-view video.</h6>&ndash;&gt;-->
+<!--                <image>-->
+<!--                    <source src="images/teaser.m4v" type="video/mp4">-->
+<!--                </image>-->
+<!--                <br><br>-->
+<!--                &lt;!&ndash;                <p class="text-left, "> Hand-eye calibration is a critical task in robotics, as it directly affects the efficacy of critical operations such as manipulation and grasping. Traditional methods for achieving this objective necessitate the careful design of joint poses and the use of specialized calibration markers, while most recent learning-based approaches using solely pose regression are limited in their abilities to diagnose inaccuracies. In this work, we introduce a new approach to hand-eye calibration called EasyHeC, which is markerless, white-box, and offers comprehensive coverage of positioning accuracy across the entire robot configuration space. We introduce two key technologies: differentiable rendering-based camera pose optimization and consistency-based joint space exploration, which enables accurate end-to-end optimization of the calibration process and eliminates the need for the laborious manual design of robot joint poses. Our evaluation demonstrates superior performance in synthetic and real-world datasets, enhancing downstream manipulation tasks by providing precise camera poses for locating and interacting with objects.</p>&ndash;&gt;-->
+<!--                <p class="text-justify"> Hand-eye calibration is a critical task in robotics, as it directly affects the-->
+<!--                    efficacy of critical operations such as manipulation and grasping. Traditional methods for achieving-->
+<!--                    this objective necessitate the careful design of joint poses and the use of specialized calibration-->
+<!--                    markers, while most recent learning-based approaches using solely pose regression are limited in-->
+<!--                    their abilities to diagnose inaccuracies. In this work, we introduce a new approach to hand-eye-->
+<!--                    calibration called EasyHeC, which is markerless, white-box, and offers comprehensive coverage of-->
+<!--                    positioning accuracy across the entire robot configuration space. We introduce two key technologies:-->
+<!--                    differentiable rendering-based camera pose optimization and consistency-based joint space-->
+<!--                    exploration, which enables accurate end-to-end optimization of the calibration process and-->
+<!--                    eliminates the need for the laborious manual design of robot joint poses. Our evaluation-->
+<!--                    demonstrates superior performance in synthetic and real-world datasets, enhancing downstream-->
+<!--                    manipulation tasks by providing precise camera poses for locating and interacting with objects.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<br>-->
+
+<!--&lt;!&ndash; overview video &ndash;&gt;-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Overview video</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                <div class="embed-responsive embed-responsive-16by9">-->
+<!--                    &lt;!&ndash;                    <iframe style="clip-path: inset(1px 1px)" width="100%" height="100%" src="https://www.youtube.com/watch?v=_PX8s-ZXPWI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>&ndash;&gt;-->
+<!--                    <iframe src="videos/EasyHeC_overview_1_small.mp4"></iframe>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<br>-->
+<!--&lt;!&ndash;<br>&ndash;&gt;-->
+<!--<br>-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Accurate calibration via differentiable rendering</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                &lt;!&ndash;                <div style="justify-content: center;align-items: center;">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <table style="justify-content: center;align-items: center;">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <tr>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <td><img src="images/xarm_syn_result_3.png" width="500"></td>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <td><img src="images/baxter_3d_result_fig.png" width="500"></td>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </tr>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <tr>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <th>Results on Synthetic xArm dataset</th>&ndash;&gt;-->
+<!--                &lt;!&ndash;                            <th>Results on Real Baxter dataset</th>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </tr>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    </table>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <div class="embed-responsive embed-responsive-16by9">&ndash;&gt;-->
+<!--                <img src="images/xarm_baxter_result.png" width="1000">-->
+<!--                &lt;!&ndash;                <h4>Results on Synthetic xArm dataset</h4>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <img src="images/baxter_3d_result.png" width="500">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <h4>Results on Real Baxter dataset</h4>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<br>-->
+<!--<br>-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Automatic calibration via joint space exploration</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                &lt;!&ndash;                <div style="justify-content: center;align-items: center;">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <iframe style="clip-path: inset(1px 1px)" width="100%" height="100%" src="videos/hec_demo4_cropped.mp4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <iframe src="videos/EasyHeC_demo_video.mp4" ></iframe>&ndash;&gt;-->
+<!--                <video width="85%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="videos/hec_demo4_cropped.mp4" type="video/mp4">-->
+<!--                </video>-->
+<!--                >-->
+<!--                &lt;!&ndash;                    <video src="videos/EasyHeC_demo_video.mp4" style="width:85%" autoplay="autoplay"></video>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<br>-->
+<!--<br>-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Real-world applications powered by EasyHeC</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                &lt;!&ndash;                <div style="justify-content: center;align-items: center;">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <img src="images/cotpc.png" width="1000">&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <video width="92%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="videos/easyhec_page_cotpc_2videoto1.mp4" type="video/mp4">-->
+<!--                </video>-->
+<!--                >-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!-- novel pose synthesis results-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Comparison on novel pose synthesis</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--&lt;!&ndash;                <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <source src="images/novel_pose_synthesis1.m4v" type="video/mp4">&ndash;&gt;-->
+<!--&lt;!&ndash;                </video>&ndash;&gt;-->
+<!--                <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="videos/hec_demo5_cropped.mp4" type="video/mp4">-->
+<!--                </video>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<br>-->
+
+<!--&lt;!&ndash; novel view synthesis results &ndash;&gt;-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Comparison on novel view synthesis</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="images/novel_view_synthesis1.m4v" type="video/mp4">-->
+<!--                </video>-->
+<!--                <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="images/novel_view_synthesis2.m4v" type="video/mp4">-->
+<!--                </video>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--<br>-->
+
+<!--&lt;!&ndash; reposed geometry results &ndash;&gt;-->
+<!--<section>-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12 text-center">-->
+<!--                <h3>Reposing the reconstructed geometry</h3>-->
+<!--                <hr style="margin-top:0px">-->
+<!--                <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                    <source src="images/reposed_geometry.m4v" type="video/mp4">-->
+<!--                </video>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<br>
+
+<!-- citing -->
+<!--<div class="container">-->
+<!--    <div class="row ">-->
+<!--        <div class="col-12">-->
+<!--            <h3>Citation</h3>-->
+<!--            <hr style="margin-top:0px">-->
+<!--            <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">-->
+<!--<code>@inproceedings{todo,-->
+<!--  title={TODO EasyHeC: Accurate and Automatic Hand-eye Calibration via Differentiable Rendering and Space Exploration},-->
+<!--  author={TODO Chen, Linghao and Qin, Yuzhe and Zhou, Xiaowei and Su, Hao},-->
+<!--  year={2023}-->
+<!--}</code></pre>-->
+<!--            <hr>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<footer class="text-center" style="margin-bottom:10px">
+    Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the website template.
+</footer>
+
+</body>
+<script>
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            // const table = document.getElementById('myTable');
+            const table = createTable(data["obj_list"], "myTable", 'obj');
+            // tableContainer.appendChild(table);
+        })
+        .catch(error => console.error(error));
+
+    fetch('data_olat.json')
+        .then(response => response.json())
+        .then(data => {
+            // const table = document.getElementById('myTable');
+            const table = createTable(data["obj_list"], "myTable1", 'obj_olat');
+            // tableContainer.appendChild(table);
+        })
+        .catch(error => console.error(error));
+
+    function createTable(data, table_id, html_name) {
+        const table = document.getElementById(table_id);
+        // Create table rows
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            const objectId = item['id'];
+            Object.values(item).forEach((value, index) => {
+                if (index === 1) {
+                    const td = document.createElement('td');
+                    const a = document.createElement('a');
+                    a.href = `${html_name}.html?id=` + objectId.toString();
+                    a.textContent = value;
+                    td.appendChild(a);
+                    row.appendChild(td);
+                } else if (index !== 2) {
+                    const td = document.createElement('td');
+                    td.textContent = value;
+                    row.appendChild(td);
+                }
+            });
+            table.appendChild(row);
+        });
+
+        return table;
+    }
+</script>
+</html>

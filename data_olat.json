@@ -1,0 +1,148 @@
+{
+  "obj_list": [
+    {
+      "id": 1,
+      "display_name": "egg",
+      "data_name": "23.06.02_12.30.33_obj-1-egg-olat",
+      "material": "paper"
+    },
+    {
+      "id": 2,
+      "display_name": "sculpture",
+      "data_name": "23.06.02_12.32.57_obj-2-sculpture-olat",
+      "material": "stone"
+    },
+    {
+      "id": 3,
+      "display_name": "pumpkin",
+      "data_name": "23.06.02_12.35.25_obj-3-pumpkin-olat",
+      "material": "stone???"
+    },
+    {
+      "id": 4,
+      "display_name": "dolphin",
+      "data_name": "23.06.02_12.39.20_obj-4-fabric-dolphin-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 5,
+      "display_name": "hedgehog",
+      "data_name": "23.06.02_12.42.57_obj-5-fabric-hedgehog-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 6,
+      "display_name": "chicken",
+      "data_name": "23.06.02_12.46.17_obj-6-chicken-olat",
+      "material": "plastic"
+    },
+    {
+      "id": 7,
+      "display_name": "pumpkin2",
+      "data_name": "23.06.02_12.51.30_obj-7-pumpkin2-olat",
+      "material": "Wicker"
+    },
+    {
+      "id": 8,
+      "display_name": "sculpture2",
+      "data_name": "23.06.02_12.56.07_obj-8-sculpture2-olat",
+      "material": "painted"
+    },
+    {
+      "id": 9,
+      "display_name": "ball",
+      "data_name": "23.06.02_13.00.22_obj-9-ball-olat",
+      "material": "nylon"
+    },
+    {
+      "id": 10,
+      "display_name": "pumpkin3",
+      "data_name": "23.06.02_13.03.41_obj10-pumpkin3-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 11,
+      "display_name": "pine",
+      "data_name": "23.06.02_13.10.31_obj-11-pine-olat",
+      "material": "painted"
+    },
+    {
+      "id": 12,
+      "display_name": "pine2",
+      "data_name": "23.06.02_13.12.44_obj-12-pine2-olat",
+      "material": "plant"
+    },
+    {
+      "id": 13,
+      "display_name": "mushroom",
+      "data_name": "23.06.02_13.14.49_obj-13-fabric-mushroom-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 14,
+      "display_name": "basketball",
+      "data_name": "23.06.02_13.17.22_obj-14-basketball-olat",
+      "material": "latex"
+    },
+    {
+      "id": 15,
+      "display_name": "pumpkin4",
+      "data_name": "23.06.02_13.22.54_obj-15-pumpkin4-olat",
+      "material": "foam"
+    },
+    {
+      "id": 16,
+      "display_name": "friends",
+      "data_name": "23.06.02_13.32.02_obj-16-friends-cup-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 17,
+      "display_name": "pumpkin5",
+      "data_name": "23.06.02_13.38.15_obj-17-pumpkin5-olat",
+      "material": "foam"
+    },
+    {
+      "id": 18,
+      "display_name": "hat",
+      "data_name": "23.06.02_13.42.38_obj-18-fabric-hat-olat",
+      "material": "fabric"
+    },
+    {
+      "id": 19,
+      "display_name": "cylinder",
+      "data_name": "23.06.02_13.46.20_obj-19-cylinder-olat",
+      "material": "paper"
+    },
+    {
+      "id": 20,
+      "display_name": "greenhead",
+      "data_name": "23.06.02_13.49.29_obj-20-greenhead-olat",
+      "material": "paper"
+    }
+  ],
+  "imgid_list": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "D1",
+    "D3",
+    "D4",
+    "D5",
+    "D6"
+  ]
+}
