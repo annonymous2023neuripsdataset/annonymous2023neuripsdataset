@@ -35,20 +35,50 @@ Light
 <button id="light013" type="button" class="btn btn-warning" onclick="goToLight('013')">013</button>
 <br><br>
 <br>
+
 Mask Type
-<button id="button_masked_obj" type="button" class="btn btn-warning" onclick="goToMask('obj_masked_thumbnail')">Object
-    mask
-</button>
-<button id="button_masked_com" type="button" class="btn btn-primary" onclick="goToMask('com_masked_thumbnail')">Combined
-    mask
-</button>
-<button id="button_origin" type="button" class="btn btn-primary" onclick="goToMask('origin_thumbnail')">No mask
-</button>
+<div id="button_mask_div">
+
+</div>
+
+<!--Mask Type-->
+<!--<button id="button_masked_obj" type="button" class="btn btn-warning" onclick="goToMask('obj_masked_thumbnail')">Object-->
+<!--    mask-->
+<!--</button>-->
+<!--<button id="button_masked_com" type="button" class="btn btn-primary" onclick="goToMask('com_masked_thumbnail')">Combined-->
+<!--    mask-->
+<!--</button>-->
+<!--<button id="button_origin" type="button" class="btn btn-primary" onclick="goToMask('origin_thumbnail')">No mask-->
+<!--</button>-->
 <br><br>
 <div id="imgdiv"></div>
 </body>
 <script>
     const objectId = new URLSearchParams(window.location.search).get('id');
+
+    button_mask_div = document.getElementById("button_mask_div");
+
+    if (objectId !== "64") {
+        button_names = ['obj_masked_thumbnail', 'com_masked_thumbnail', 'origin_thumbnail']
+        class_names = ['btn btn-warning', 'btn btn-primary', 'btn btn-primary']
+        innerHTMLs = ['Object mask', 'Combined mask', 'No mask']
+    } else {
+        button_names = ['obj_masked_thumbnail', 'origin_thumbnail']
+        class_names = ['btn btn-warning', 'btn btn-primary']
+        innerHTMLs = ['Object mask', 'No mask']
+    }
+    for (i = 0; i < button_names.length; i++) {
+        button = document.createElement("button");
+        button.id = button_names[i];
+        button.type = "button";
+        button.className = class_names[i];
+        button.innerHTML = innerHTMLs[i];
+        button.onclick = function () {
+            goToMask(this.id);
+        }
+        button_mask_div.appendChild(button);
+    }
+
     maxN = 0
     fetch('data.json')
         .then(response => response.json())
@@ -72,7 +102,7 @@ Mask Type
         const thisdata = obj_list[objectId - 1]
         // console.log(thisdata)
         const img_container = document.getElementById('imgdiv');
-        //const root = "/mnt/data/OpenIllumination_release"
+        // const root = "/home/linghao/Datasets/lightstage_dataset"
         const root="https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
         https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns/obj_43_paper_ball/Lights/001/obj_masked_thumbnail/CA2.png
         imgid_list.forEach(imgid => {

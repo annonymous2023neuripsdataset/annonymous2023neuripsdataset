@@ -377,6 +377,12 @@
       "display_name": "fabric-friends-cup",
       "data_name": "obj_63-fabric-friends-cup",
       "material": "fabric"
+    },
+    {
+      "id": 64,
+      "display_name": "greenhead",
+      "data_name": "obj_64_greenhead",
+      "material": "paper"
     }
   ],
   "imgid_list": [
