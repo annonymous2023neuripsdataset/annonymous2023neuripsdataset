@@ -102,8 +102,8 @@ Mask Type
         const thisdata = obj_list[objectId - 1]
         const img_container = document.getElementById('imgdiv');
         // const root = "/mnt/data/lightstage_dataset2/UCSD_OLAT2/UCSD_OLAT"
-        const root = "/mnt/data/Datasets/OpenIllumination_release/OLAT"
-        // const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+        //const root = "/mnt/data/Datasets/OpenIllumination_release/OLAT"
+        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/OLAT"
         imgid_list.forEach(imgid => {
             const img = document.createElement('img');
             img.src = `${root}/${thisdata['data_name']}/Lights/000/obj_masked_thumbnail/${imgid}.png`
