@@ -55,6 +55,18 @@
             font-size: 20px;
             margin-bottom: 10px;
         }
+
+        #popup {
+            position: absolute;
+            display: none;
+            background-color: white;
+            padding: 2px;
+            border: 1px solid gray;
+        }
+
+        #preview-image {
+            max-width: 200px;
+        }
     </style>
     <script>
         var currentSortCol = -1;
@@ -201,6 +213,9 @@
                 </tr>
             </table>
         </div>
+    </div>
+    <div id="popup">
+        <img id="preview-image" src="" alt="Preview Image">
     </div>
 </section>
 <br>
@@ -404,12 +419,14 @@
 
 </body>
 <script>
+    datas = null;
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
             // const table = document.getElementById('myTable');
             const table = createTable(data["obj_list"], "myTable", 'obj');
             // tableContainer.appendChild(table);
+            datas = data;
         })
         .catch(error => console.error(error));
 
@@ -442,10 +459,56 @@
                     row.appendChild(td);
                 }
             });
+            row.addEventListener('mouseover', showPreview);
+            row.addEventListener('mouseout', hidePreview);
             table.appendChild(row);
         });
 
         return table;
+    }
+
+    function showPreview(event) {
+        var previewImage = document.getElementById('preview-image');
+        var currentRow = event.currentTarget;
+        var rowData = currentRow.innerText.split("\t")[0];
+        // console.log(rowData);
+        thisdata = datas['obj_list'][rowData - 1];
+        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+
+        // Position the popup next to the mouse pointer
+        var rect = currentRow.getBoundingClientRect();
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+        var x = rect.left + scrollLeft;
+        var y = rect.top + scrollTop;
+
+        // Create a thumbnail version of the image
+        var thumbnailSize = 100; // Adjust this to your desired thumbnail size
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        var thumbnailImage = new Image();
+        thumbnailImage.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/CA2.png`;
+        thumbnailImage.onload = function () {
+            canvas.width = thumbnailSize;
+            canvas.height = thumbnailSize;
+            ctx.drawImage(thumbnailImage, 0, 0, thumbnailSize, thumbnailSize);
+
+            // Replace the original image with the thumbnail
+            previewImage.src = canvas.toDataURL(); // The thumbnail is in base64 format
+        };
+
+
+        var popup = document.getElementById('popup');
+        popup.style.display = 'block';
+        popup.style.left = (x + 10) + 'px';
+        popup.style.top = (y + 10) + 'px';
+    }
+
+    // Function to hide the popup
+    function hidePreview() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
     }
 </script>
 </html>
