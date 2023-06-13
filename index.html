@@ -420,6 +420,7 @@
 </body>
 <script>
     datas = null;
+    datas_olat = null;
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
@@ -436,6 +437,7 @@
             // const table = document.getElementById('myTable');
             const table = createTable(data["obj_list"], "myTable1", 'obj_olat');
             // tableContainer.appendChild(table);
+            datas_olat = data;
         })
         .catch(error => console.error(error));
 
@@ -470,10 +472,24 @@
     function showPreview(event) {
         var previewImage = document.getElementById('preview-image');
         var currentRow = event.currentTarget;
+        tableId = currentRow.parentNode.id;
         var rowData = currentRow.innerText.split("\t")[0];
-        // console.log(rowData);
-        thisdata = datas['obj_list'][rowData - 1];
-        const root = "files/lighting_patterns"
+
+        if (tableId === "myTable") {
+            root = "files/lighting_patterns";
+            lightIndex = "013";
+            filename = "CA2.png";
+            width = 100;
+            height = 150;
+            thisdata = datas['obj_list'][rowData - 1];
+        } else {
+            root = "files/OLAT";
+            lightIndex = "000";
+            filename = "A1.png"
+            width = 100;
+            height = 136;
+            thisdata = datas_olat['obj_list'][rowData - 1];
+        }
 
         // Position the popup next to the mouse pointer
         var rect = currentRow.getBoundingClientRect();
@@ -487,11 +503,11 @@
         var ctx = canvas.getContext('2d');
 
         var thumbnailImage = new Image();
-        thumbnailImage.src = `${root}/${thisdata['data_name']}/Lights/013/origin_smaller_thumbnail/CA2.png`;
+        thumbnailImage.src = `${root}/${thisdata['data_name']}/Lights/${lightIndex}/origin_smaller_thumbnail/${filename}`;
         thumbnailImage.onload = function () {
-            canvas.width = 100;
-            canvas.height = 150;
-            ctx.drawImage(thumbnailImage, 0, 0, 100, 150);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(thumbnailImage, 0, 0, width, height);
 
             // Replace the original image with the thumbnail
             previewImage.src = canvas.toDataURL(); // The thumbnail is in base64 format
