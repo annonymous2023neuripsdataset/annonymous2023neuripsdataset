@@ -116,20 +116,58 @@ Mask Type
         const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
         // https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns/obj_43_paper_ball/Lights/001/obj_masked_thumbnail/CA2.png
         imgid_list.forEach(imgid => {
+            const figure_div = document.createElement('div');
+            figure_div.style.display = 'inline-block'
+            figure_div.style.textAlign = 'center';
+            figure_div.style.maxWidth = '8%';
+            figure_div.style.borderBottom = '1px solid #eee';
+
+            const figure = document.createElement('figure');
             const img = document.createElement('img');
             img.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/${imgid}.png`
-            img.style.maxWidth = '8%'
-            img_container.appendChild(img)
-            const label = document.createElement('label');
-            label.id = "label_" + imgid;
-            label.innerHTML = imgid;
-            label.style.display = 'none';
-            img_container.appendChild(label)
+            img.style.maxWidth = '100%'
+            figure.appendChild(img);
+
+            const caption = document.createElement('figcaption');
+            caption.id = "figcaption_" + imgid;
+            caption.innerHTML = imgid;
+            caption.style.display = 'none';
+            figure.appendChild(caption);
+
+            figure_div.appendChild(figure);
+
+            img_container.appendChild(figure_div);
         })
         const display_name = thisdata["display_name"];
         const material = thisdata["material"];
         obj_property = document.getElementById("obj_property");
         obj_property.innerHTML = `ID: ${objectId} Name: ${display_name} Material: ${material}`;
+
+
+        var toggleCheckbox = document.getElementById("toggleCheckbox");
+        var figcaptions = document.querySelectorAll("figcaption");
+
+
+        var storedCheckboxState = localStorage.getItem("checkboxState");
+        if (storedCheckboxState) {
+            toggleCheckbox.checked = JSON.parse(storedCheckboxState);
+            toggleCameraIDs();
+        }
+
+        toggleCheckbox.addEventListener("change", function () {
+            localStorage.setItem("checkboxState", toggleCheckbox.checked);
+            toggleCameraIDs();
+        });
+
+        function toggleCameraIDs() {
+            figcaptions.forEach(caption => {
+                if (toggleCheckbox.checked) {
+                    caption.style.display = 'block';
+                } else {
+                    caption.style.display = 'none';
+                }
+            });
+        }
     }
 
     function goToNextObject() {
