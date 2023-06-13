@@ -17,7 +17,17 @@
 <button type="button" class="btn btn-primary" onclick="goBack()">Main</button>
 <button type="button" class="btn btn-primary" onclick="goToPreviousObject()">Previous Object</button>
 <button type="button" class="btn btn-primary" onclick="goToNextObject()">Next Object</button>
+<label for="toggleCheckbox">Toggle Camera ID</label>
+<input type="checkbox" id="toggleCheckbox">
 <br>
+<br>
+
+<!--<div class="form-check">-->
+<!--    <label class="form-check-label" for="flexCheckDefault">-->
+<!--        Toggle Camera ID-->
+<!--    </label>-->
+<!--    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">-->
+<!--</div>-->
 <br>
 Light
 <button id="light001" type="button" class="btn btn-primary" onclick="goToLight('001')">001</button>
@@ -103,16 +113,18 @@ Mask Type
         // console.log(thisdata)
         const img_container = document.getElementById('imgdiv');
         // const root = "/home/linghao/Datasets/lightstage_dataset"
-        const root="https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
-        https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns/obj_43_paper_ball/Lights/001/obj_masked_thumbnail/CA2.png
+        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+        // https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns/obj_43_paper_ball/Lights/001/obj_masked_thumbnail/CA2.png
         imgid_list.forEach(imgid => {
             const img = document.createElement('img');
             img.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/${imgid}.png`
             img.style.maxWidth = '8%'
             img_container.appendChild(img)
-            //const label = document.createElement('label');
-            //label.innerHTML = imgid
-            //img_container.appendChild(label)
+            const label = document.createElement('label');
+            label.id = "label_" + imgid;
+            label.innerHTML = imgid;
+            label.style.display = 'none';
+            img_container.appendChild(label)
         })
         const display_name = thisdata["display_name"];
         const material = thisdata["material"];
