@@ -473,26 +473,25 @@
         var rowData = currentRow.innerText.split("\t")[0];
         // console.log(rowData);
         thisdata = datas['obj_list'][rowData - 1];
-        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+        const root = "files/lighting_patterns"
 
         // Position the popup next to the mouse pointer
         var rect = currentRow.getBoundingClientRect();
         var scrollTop = window.scrollY || document.documentElement.scrollTop;
         var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-        var x = rect.left + scrollLeft;
+        // var x = rect.left + scrollLeft;
+        var x = event.clientX;
         var y = rect.top + scrollTop;
 
-        // Create a thumbnail version of the image
-        var thumbnailSize = 100; // Adjust this to your desired thumbnail size
         var canvas = document.createElement('canvas');
         var ctx = canvas.getContext('2d');
 
         var thumbnailImage = new Image();
-        thumbnailImage.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/CA2.png`;
+        thumbnailImage.src = `${root}/${thisdata['data_name']}/Lights/013/origin_smaller_thumbnail/CA2.png`;
         thumbnailImage.onload = function () {
-            canvas.width = thumbnailSize;
-            canvas.height = thumbnailSize;
-            ctx.drawImage(thumbnailImage, 0, 0, thumbnailSize, thumbnailSize);
+            canvas.width = 100;
+            canvas.height = 150;
+            ctx.drawImage(thumbnailImage, 0, 0, 100, 150);
 
             // Replace the original image with the thumbnail
             previewImage.src = canvas.toDataURL(); // The thumbnail is in base64 format
