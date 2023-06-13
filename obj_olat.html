@@ -18,13 +18,16 @@
 <button type="button" class="btn btn-primary" onclick="goBack()">Main</button>
 <button type="button" class="btn btn-primary" onclick="goToPreviousObject()">Previous Object</button>
 <button type="button" class="btn btn-primary" onclick="goToNextObject()">Next Object</button>
+<label for="toggleCheckbox">Toggle Camera ID</label>
+<input type="checkbox" id="toggleCheckbox">
 <br>
 <br>
 <div class="container float-left">
-<label for="mySlider" class="form-label">Light</label>
-<input type="range" class="form-range" style="width: 90%" id="mySlider" min="0" max="141"
-       oninput="sliderCallback(this.value)" value="0">
-<label for="sliderValue"></label><input type="text" style="width: 5%" id="sliderValue" oninput="updateSlider(this.value)" value="0">
+    <label for="mySlider" class="form-label">Light</label>
+    <input type="range" class="form-range" style="width: 90%" id="mySlider" min="0" max="141"
+           oninput="sliderCallback(this.value)" value="0">
+    <label for="sliderValue"></label><input type="text" style="width: 5%" id="sliderValue"
+                                            oninput="updateSlider(this.value)" value="0">
 </div>
 <br><br>
 <br>
@@ -36,24 +39,6 @@ Mask Type
 <div id="imgdiv"></div>
 </body>
 <script>
-    // button_div = document.getElementById("button_div");
-    // for (i = 0; i < 142; i++) {
-    //     button = document.createElement("button");
-    //     button.id = "light" + i.toString().padStart(3, '0');
-    //     button.type = "button";
-    //     if (i === 0) {
-    //         button.className = "btn btn-warning";
-    //     } else {
-    //         button.className = "btn btn-primary";
-    //     }
-    //     button.innerHTML = i.toString().padStart(3, '0');
-    //     button.onclick = function () {
-    //         goToLight(this.innerHTML);
-    //     }
-    //     button_div.appendChild(button);
-    // }
-
-
     const objectId = new URLSearchParams(window.location.search).get('id');
     button_mask_div = document.getElementById("button_mask_div");
 
@@ -101,22 +86,57 @@ Mask Type
         imgid_list = data['imgid_list'];
         const thisdata = obj_list[objectId - 1]
         const img_container = document.getElementById('imgdiv');
-        // const root = "/mnt/data/lightstage_dataset2/UCSD_OLAT2/UCSD_OLAT"
-        //const root = "/mnt/data/Datasets/OpenIllumination_release/OLAT"
         const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/OLAT"
         imgid_list.forEach(imgid => {
+            const figure_div = document.createElement('div');
+            figure_div.style.display = 'inline-block'
+            figure_div.style.textAlign = 'center';
+            figure_div.style.maxWidth = '8%';
+            figure_div.style.borderBottom = '1px solid #eee';
+
+            const figure = document.createElement('figure');
             const img = document.createElement('img');
             img.src = `${root}/${thisdata['data_name']}/Lights/000/obj_masked_thumbnail/${imgid}.png`
-            img.style.maxWidth = '8%'
-            img_container.appendChild(img)
-            // const label = document.createElement('label');
-            // label.innerHTML = imgid
-            // img_container.appendChild(label)
+            img.style.maxWidth = '100%'
+            figure.appendChild(img);
+            const caption = document.createElement('figcaption');
+            caption.id = "figcaption_" + imgid;
+            caption.innerHTML = imgid;
+            caption.style.display = 'none';
+            figure.appendChild(caption);
+
+            figure_div.appendChild(figure);
+
+            img_container.appendChild(figure_div);
         })
         const display_name = thisdata["display_name"];
         const material = thisdata["material"];
         obj_property = document.getElementById("obj_property");
         obj_property.innerHTML = `ID: ${objectId} Name: ${display_name} Material: ${material}`;
+        var toggleCheckbox = document.getElementById("toggleCheckbox");
+        var figcaptions = document.querySelectorAll("figcaption");
+
+
+        var storedCheckboxState = localStorage.getItem("checkboxState");
+        if (storedCheckboxState) {
+            toggleCheckbox.checked = JSON.parse(storedCheckboxState);
+            toggleCameraIDs();
+        }
+
+        toggleCheckbox.addEventListener("change", function () {
+            localStorage.setItem("checkboxState", toggleCheckbox.checked);
+            toggleCameraIDs();
+        });
+
+        function toggleCameraIDs() {
+            figcaptions.forEach(caption => {
+                if (toggleCheckbox.checked) {
+                    caption.style.display = 'block';
+                } else {
+                    caption.style.display = 'none';
+                }
+            });
+        }
     }
 
     function goToNextObject() {

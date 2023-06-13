@@ -22,12 +22,6 @@
 <br>
 <br>
 
-<!--<div class="form-check">-->
-<!--    <label class="form-check-label" for="flexCheckDefault">-->
-<!--        Toggle Camera ID-->
-<!--    </label>-->
-<!--    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">-->
-<!--</div>-->
 <br>
 Light
 <button id="light001" type="button" class="btn btn-primary" onclick="goToLight('001')">001</button>
@@ -110,7 +104,6 @@ Mask Type
         obj_list = data['obj_list'];
         imgid_list = data['imgid_list'];
         const thisdata = obj_list[objectId - 1]
-        // console.log(thisdata)
         const img_container = document.getElementById('imgdiv');
         // const root = "/home/linghao/Datasets/lightstage_dataset"
         const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
