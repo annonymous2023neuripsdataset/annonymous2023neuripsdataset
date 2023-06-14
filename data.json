@@ -98,9 +98,9 @@
     },
     {
       "id": 17,
-      "display_name": "wooden_box",
+      "display_name": "box",
       "data_name": "obj_17_wooden_box",
-      "material": "wooden"
+      "material": "coated"
     },
     {
       "id": 18,
