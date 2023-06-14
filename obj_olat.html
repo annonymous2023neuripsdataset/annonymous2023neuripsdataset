@@ -58,6 +58,7 @@ Mask Type
         button.className = class_names[i];
         button.innerHTML = innerHTMLs[i];
         button.onclick = function () {
+            localStorage.setItem("olat_clicked_mask_button_state", this.id);
             goToMask(this.id);
         }
         button_mask_div.appendChild(button);
@@ -86,7 +87,9 @@ Mask Type
         imgid_list = data['imgid_list'];
         const thisdata = obj_list[objectId - 1]
         const img_container = document.getElementById('imgdiv');
-        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/OLAT"
+        // const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/OLAT"
+        const root = "files/OLAT"
+        // const root = "https://media.githubusercontent.com/media/annonymous2023neuripsdataset/annonymous2023neuripsdataset.github.io/main/files/OLAT"
         imgid_list.forEach(imgid => {
             const figure_div = document.createElement('div');
             figure_div.style.display = 'inline-block'
@@ -96,7 +99,7 @@ Mask Type
 
             const figure = document.createElement('figure');
             const img = document.createElement('img');
-            img.src = `${root}/${thisdata['data_name']}/Lights/000/obj_masked_thumbnail/${imgid}.png`
+            img.src = `${root}/${thisdata['data_name']}/Lights/000/obj_masked_thumbnail/${imgid}.jpg`
             img.style.maxWidth = '100%'
             figure.appendChild(img);
             const caption = document.createElement('figcaption');
@@ -137,6 +140,17 @@ Mask Type
                 }
             });
         }
+
+        var clicked_mask_button = localStorage.getItem("olat_clicked_mask_button_state");
+        if (clicked_mask_button) {
+            goToMask(clicked_mask_button);
+        }
+
+        var lightIdx = localStorage.getItem("olat_lightIdx");
+        if (lightIdx) {
+            goToLight(lightIdx,"olat_lightIdx");
+        }
+
     }
 
     function goToNextObject() {
@@ -172,7 +186,7 @@ Mask Type
         // This function will be called whenever the slider's value changes
         // console.log("Slider value:", value);
         // You can perform additional actions or call other functions here
-        goToLight(value.toString().padStart(3, '0'));
+        goToLight(value.toString().padStart(3, '0'),'olat_lightIdx');
         document.getElementById("sliderValue").value = value;
     }
 
@@ -184,7 +198,7 @@ Mask Type
         }
         document.getElementById("mySlider").value = value; // Update slider value
         document.getElementById("sliderValue").value = value; // Update slider value
-        goToLight(value.toString().padStart(3, '0'));
+        goToLight(value.toString().padStart(3, '0'),'olat_lightIdx');
     }
 
 

@@ -24,19 +24,19 @@
 
 <br>
 Light
-<button id="light001" type="button" class="btn btn-primary" onclick="goToLight('001')">001</button>
-<button id="light002" type="button" class="btn btn-primary" onclick="goToLight('002')">002</button>
-<button id="light003" type="button" class="btn btn-primary" onclick="goToLight('003')">003</button>
-<button id="light004" type="button" class="btn btn-primary" onclick="goToLight('004')">004</button>
-<button id="light005" type="button" class="btn btn-primary" onclick="goToLight('005')">005</button>
-<button id="light006" type="button" class="btn btn-primary" onclick="goToLight('006')">006</button>
-<button id="light007" type="button" class="btn btn-primary" onclick="goToLight('007')">007</button>
-<button id="light008" type="button" class="btn btn-primary" onclick="goToLight('008')">008</button>
-<button id="light009" type="button" class="btn btn-primary" onclick="goToLight('009')">009</button>
-<button id="light010" type="button" class="btn btn-primary" onclick="goToLight('010')">010</button>
-<button id="light011" type="button" class="btn btn-primary" onclick="goToLight('011')">011</button>
-<button id="light012" type="button" class="btn btn-primary" onclick="goToLight('012')">012</button>
-<button id="light013" type="button" class="btn btn-warning" onclick="goToLight('013')">013</button>
+<button id="light001" type="button" class="btn btn-primary" onclick="goToLight('001','lightIdx')">001</button>
+<button id="light002" type="button" class="btn btn-primary" onclick="goToLight('002','lightIdx')">002</button>
+<button id="light003" type="button" class="btn btn-primary" onclick="goToLight('003','lightIdx')">003</button>
+<button id="light004" type="button" class="btn btn-primary" onclick="goToLight('004','lightIdx')">004</button>
+<button id="light005" type="button" class="btn btn-primary" onclick="goToLight('005','lightIdx')">005</button>
+<button id="light006" type="button" class="btn btn-primary" onclick="goToLight('006','lightIdx')">006</button>
+<button id="light007" type="button" class="btn btn-primary" onclick="goToLight('007','lightIdx')">007</button>
+<button id="light008" type="button" class="btn btn-primary" onclick="goToLight('008','lightIdx')">008</button>
+<button id="light009" type="button" class="btn btn-primary" onclick="goToLight('009','lightIdx')">009</button>
+<button id="light010" type="button" class="btn btn-primary" onclick="goToLight('010','lightIdx')">010</button>
+<button id="light011" type="button" class="btn btn-primary" onclick="goToLight('011','lightIdx')">011</button>
+<button id="light012" type="button" class="btn btn-primary" onclick="goToLight('012','lightIdx')">012</button>
+<button id="light013" type="button" class="btn btn-warning" onclick="goToLight('013','lightIdx')">013</button>
 <br><br>
 <br>
 
@@ -78,10 +78,12 @@ Mask Type
         button.className = class_names[i];
         button.innerHTML = innerHTMLs[i];
         button.onclick = function () {
+            localStorage.setItem("clicked_mask_button_state", this.id);
             goToMask(this.id);
         }
         button_mask_div.appendChild(button);
     }
+
 
     maxN = 0
     fetch('data.json')
@@ -106,7 +108,9 @@ Mask Type
         const thisdata = obj_list[objectId - 1]
         const img_container = document.getElementById('imgdiv');
         // const root = "/home/linghao/Datasets/lightstage_dataset"
-        const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+        // const root = "https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns"
+        const root = "files/lighting_patterns"
+        // const root = "https://media.githubusercontent.com/media/annonymous2023neuripsdataset/annonymous2023neuripsdataset.github.io/main/files/lighting_patterns"
         // https://huggingface.co/datasets/fsky097/OpenIllumination/resolve/main/lighting_patterns/obj_43_paper_ball/Lights/001/obj_masked_thumbnail/CA2.png
         imgid_list.forEach(imgid => {
             const figure_div = document.createElement('div');
@@ -117,7 +121,7 @@ Mask Type
 
             const figure = document.createElement('figure');
             const img = document.createElement('img');
-            img.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/${imgid}.png`
+            img.src = `${root}/${thisdata['data_name']}/Lights/013/obj_masked_thumbnail/${imgid}.jpg`
             img.style.maxWidth = '100%'
             figure.appendChild(img);
 
@@ -161,6 +165,17 @@ Mask Type
                 }
             });
         }
+
+        var clicked_mask_button = localStorage.getItem("clicked_mask_button_state");
+        if (clicked_mask_button) {
+            goToMask(clicked_mask_button);
+        }
+
+        var lightIdx = localStorage.getItem("lightIdx");
+        if (lightIdx) {
+            goToLight(lightIdx, "lightIdx");
+        }
+
     }
 
     function goToNextObject() {
