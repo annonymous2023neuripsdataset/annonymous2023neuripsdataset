@@ -249,7 +249,7 @@
     {
       "id": 42,
       "display_name": "food_banana",
-      "data_name": "obj_42_banana",
+      "data_name": "obj_42_food_banana",
       "material": "food"
     },
     {
